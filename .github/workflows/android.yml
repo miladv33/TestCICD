@@ -56,7 +56,7 @@ jobs:
       - name: Create release and upload apk
         uses: underwindfall/create-release-with-debugapk@v2.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
             name: App bundle(s) and APK(s) generated
             path: app/build/outputs/
