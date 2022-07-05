@@ -53,8 +53,9 @@ jobs:
       
       # Upload Artifact Build
       # Noted For Output [module-name]/build/outputs/
-      - name: Create release and upload apk
-        uses: underwindfall/create-release-with-debugapk@v2.0.0
+      - name: Build Android release APK when create new tag
+        uses: kyze8439690/action-release-releaseapk@1.0.0
+
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
