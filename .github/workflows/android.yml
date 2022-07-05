@@ -51,15 +51,15 @@ jobs:
           name: App bundle(s) and APK(s) generated
           path: app/build/outputs/
       
-      # Upload Artifact Build
-      # Noted For Output [module-name]/build/outputs/
-      - name: Build Android release APK when create new tag
-        uses: kyze8439690/action-release-releaseapk@1.0.0
-
+      - name: Upload APK to Release
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-            name: App bundle(s) and APK(s) generated
-            path: app/build/outputs/
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./app/build/outputs/apk/debug/app-debug.apk
+          asset_name: app-debug.apk
+          asset_content_type: application/zip
       
       
