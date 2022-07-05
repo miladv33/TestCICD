@@ -43,8 +43,8 @@ jobs:
     needs: apk
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    steps:
-      - name: Download APK from build
+    steps: src="https://gist.github.com/alexanderbazo/227476190ef5ab655795e34ec0d314d6.js"></script>
+      - name: Download From
         uses: actions/download-artifact@v1
         with:
           name: apk  
