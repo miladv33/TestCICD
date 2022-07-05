@@ -1,10 +1,11 @@
-name: Android CI
+name: Generate APK / AAB Debug And Release
 
 on:
+  # Triggers the workflow on push or pull request events but only for default and protected branches
   push:
-    branches: [ "master" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -12,15 +13,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+      - uses: actions/checkout@v1
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew test
+
+      # Run Build Project
+      - name: Build project
+        run: ./gradlew build
+
+      # Create APK Debug
+      - name: Build apk debug project (APK)
+        run: ./gradlew assembleDebug
+
+      # Create APK Release
+      - name: Build apk release project (APK)
+        run: ./gradlew assemble
+
+      # Create Bundle AAB Release
+      # Noted for main module build [module-name]:bundleRelease
+      - name: Build app bundle release (AAB)
+        run: ./gradlew app:bundleRelease
+
+      # Upload Artifact Build
+      # Noted For Output [module-name]/build/outputs/
+      - name: Upload debug build APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: App bundle(s) and APK(s) generated
+          path: app/build/outputs/
