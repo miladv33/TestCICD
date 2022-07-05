@@ -51,13 +51,14 @@ jobs:
           name: App bundle(s) and APK(s) generated
           path: app/build/outputs/
       
-      # Release package
+      # Upload Artifact Build
       # Noted For Output [module-name]/build/outputs/
       - name: Create release and upload apk
         uses: underwindfall/create-release-with-debugapk@v2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: Example.apk
-          path: app/build/outputs/
-          
+            name: App bundle(s) and APK(s) generated
+            path: app/build/outputs/
       
       
