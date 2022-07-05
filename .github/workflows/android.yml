@@ -50,3 +50,14 @@ jobs:
         with:
           name: App bundle(s) and APK(s) generated
           path: app/build/outputs/
+      
+      # Release package
+      # Noted For Output [module-name]/build/outputs/
+      - name: Create release and upload apk
+        uses: underwindfall/create-release-with-debugapk@v2.0.0
+        with:
+          name: Example.apk
+          path: app/build/outputs/
+          
+      
+      
