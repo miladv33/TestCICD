@@ -30,13 +30,16 @@ jobs:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
 
+
+
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          tag_name: newtag
+          tag_name: newtag2
           release_name: Automatic Release
           draft: false
           prerelease: false
