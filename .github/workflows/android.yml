@@ -2,9 +2,9 @@ name: Upload APK in Releases
 on:
   # Triggers the workflow on push or pull request events but only for default and protected branches
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   apk:
@@ -34,14 +34,18 @@ jobs:
           TIME: "${{ steps.current-time.outputs.time }}"
           R_TIME: "${{ steps.current-time.outputs.readableTime }}"
           F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-          YEAR: "${{ steps.current-time.outputs.year }}"
-          DAY: "${{ steps.current-time.outputs.day }}"
         run: echo $TIME $R_TIME $F_TIME $YEAR $DAY
         
         
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
-   
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload APK to Github Artifacts
         uses: actions/upload-artifact@v1
         with:
@@ -58,6 +62,7 @@ jobs:
           release_name: ${{ steps.current-time.outputs.formattedTime }}
           draft: false
           prerelease: false
+          body: ${{steps.github_release.outputs.changelog}}
 
       - name: Upload APK to Release
         id: upload-release-asset 
