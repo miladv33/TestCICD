@@ -22,9 +22,9 @@ jobs:
 
       - name: Grant Permission to Execute
         run: chmod +x gradlew
-        
-      
-      
+
+
+
       - name: Get current time
         uses: josStorer/get-current-time@v2
         id: current-time
@@ -37,8 +37,8 @@ jobs:
           R_TIME: "${{ steps.current-time.outputs.readableTime }}"
           F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
         run: echo $TIME $R_TIME $F_TIME $YEAR $DAY
-        
-        
+
+
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
 
@@ -53,7 +53,7 @@ jobs:
         with:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
-   
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -67,7 +67,7 @@ jobs:
           body: ${{ env.commitmsg }}
 
       - name: Upload APK to Release
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
