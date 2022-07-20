@@ -13,6 +13,7 @@ jobs:
 
     env:
       commitmsg: ${git log --format=%B -n 1 ${{github.event.after}}}
+
     steps:
       - uses: actions/checkout@v1
       - name: set up JDK 11
