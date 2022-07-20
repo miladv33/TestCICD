@@ -1,4 +1,9 @@
 package com.example.testcicd
 
-class MainViewModel {
+import androidx.lifecycle.ViewModel
+
+class MainViewModel: ViewModel() {
+    fun saveChange(){
+
+    }
 }
