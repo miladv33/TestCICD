@@ -64,7 +64,7 @@ jobs:
           release_name: ${{ steps.current-time.outputs.formattedTime }}
           draft: false
           prerelease: false
-          body: ${{ env.commitmsg }}
+          body: "this is a test for body"
 
       - name: Upload APK to Release
         id: upload-release-asset
