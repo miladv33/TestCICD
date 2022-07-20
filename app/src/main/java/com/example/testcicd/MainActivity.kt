@@ -14,4 +14,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //add this line for test
     }
+
+    fun onClickButton() {
+
+    }
 }
